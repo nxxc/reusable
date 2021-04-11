@@ -1,7 +1,8 @@
 import React from 'react';
+import styles from './styles.module.css';
 
 function RoutineForm() {
-    return <div>AddRotine</div>;
+    return <div className={styles.container}>AddRotine</div>;
 }
 
 export default RoutineForm;

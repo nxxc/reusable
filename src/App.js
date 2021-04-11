@@ -9,9 +9,7 @@ function App() {
                 <Route path='/' exact>
                     <Routine />
                 </Route>
-                <Route path='/add'>
-                    <RoutineForm />
-                </Route>
+                <Route path='/id'>todo detail</Route>
             </Switch>
         </Router>
     );
