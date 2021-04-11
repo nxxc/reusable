@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import Routine from './components/Routine/Routine';
-import RoutineForm from './components/RoutineForm/RoutineForm';
 function App() {
     return (
         <Router>

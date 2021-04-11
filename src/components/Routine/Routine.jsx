@@ -3,13 +3,16 @@ import { Button, Drawer } from '@material-ui/core';
 import RoutineForm from '../RoutineForm/RoutineForm';
 import RoutineView from './RoutineView/RoutineView';
 import styles from './styles.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { openDrawer, closeDrawer } from '../../redux/store';
 
 function Routine() {
     const [open, setOpen] = useState(false);
+    const isOpen = useSelector((state) => state.base.isOpen);
+    const dispatch = useDispatch();
     const routines = useSelector((state) => state.routine);
 
-    const toggleOpen = () => setOpen(true);
+    const toggleOpen = () => dispatch(openDrawer());
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (
@@ -18,8 +21,7 @@ function Routine() {
         ) {
             return;
         }
-
-        setOpen(false);
+        dispatch(closeDrawer());
     };
     return (
         <>
@@ -38,7 +40,7 @@ function Routine() {
             </section>
             <Drawer
                 anchor='right'
-                open={open}
+                open={isOpen}
                 onClose={toggleDrawer('right', false)}
             >
                 <RoutineForm />

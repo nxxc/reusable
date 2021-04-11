@@ -1,51 +1,106 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
+import Todos from './Todos/Todos';
 
-import { addTodo } from '../../redux/todosSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { addRoutine } from '../../redux/routinesSlice';
 
 import styles from './styles.module.css';
-import Todos from './Todos/Todos';
-import { Button } from '@material-ui/core';
-import { addRoutine } from '../../redux/routinesSlice';
-import { addItem } from '../../redux/itemsSlice';
+
+import { Button, ButtonGroup, Input, List, ListItem } from '@material-ui/core';
+
+import { nanoid } from 'nanoid';
+import { addTodo } from '../../redux/todosSlice';
+import { closeDrawer } from '../../redux/store';
 
 function RoutineForm() {
-    const inputRef = useRef();
-    const todos = useSelector((state) => state.todo);
-    const items = useSelector((state) => state.item);
-    const dispatch = useDispatch();
-    // const [todos, setTodos] = useState(initalTodos);
+    const [title, setTitle] = useState('');
+    const [value, setValue] = useState('');
+    const [currentItem, setCurrentItem] = useState([]);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const text = inputRef.current.value;
-        dispatch(addTodo(text));
-        dispatch(addItem(text));
-        inputRef.current.value = '';
-    };
+    const todos = useSelector((state) => state.todo);
+    const dispatch = useDispatch();
 
     const onTodoClick = (todo) => {
-        console.log(todo);
+        setCurrentItem((state) =>
+            currentItem.includes(todo) ? state : [...state, todo]
+        );
+    };
+
+    const handleChange = (e) => {
+        setValue(e.target.value);
+    };
+
+    const addItem = (e) => {
+        if (value === '') return;
+        setCurrentItem((state) => {
+            return [
+                ...state,
+                {
+                    id: nanoid(),
+                    text: value,
+                },
+            ];
+        });
+        dispatch(addTodo(value));
+    };
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        setValue('');
     };
 
     const onSave = (current) => {
-        dispatch(addRoutine(current));
+        dispatch(
+            addRoutine({
+                title,
+                current,
+            })
+        );
+        setCurrentItem([]);
+        setTitle('');
+        dispatch(closeDrawer());
     };
     return (
         <div className={styles.container}>
-            <section className={styles.routineContainer}>
-                {items.length
-                    ? items.map((todo) => <li key={todo}>{todo.text}</li>)
-                    : 'add todo'}
-                <form type='submit' onSubmit={handleSubmit}>
-                    <input
-                        type='text'
-                        placeholder='add todo...'
-                        ref={inputRef}
-                    ></input>
-                </form>
-                <Button onClick={() => onSave(items)}>save</Button>
-            </section>
+            <form className={styles.routineContainer} onSubmit={onSubmit}>
+                <Input
+                    id='title'
+                    type='text'
+                    placeholder='add title...'
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                />
+                <List>
+                    {currentItem.map((item) => (
+                        <ListItem>{item.text}</ListItem>
+                    ))}
+                </List>
+                <Input
+                    id='item'
+                    type='text'
+                    value={value}
+                    placeholder='add item...'
+                    onChange={handleChange}
+                />
+                <ButtonGroup>
+                    <Button
+                        variant='contained'
+                        color='primary'
+                        onClick={addItem}
+                        type='submit'
+                    >
+                        add item
+                    </Button>
+                    <Button
+                        variant='contained'
+                        color='secondary'
+                        onClick={() => onSave(currentItem)}
+                    >
+                        save routine
+                    </Button>
+                </ButtonGroup>
+            </form>
             <section className={styles.todosContainer}>
                 <Todos todos={todos} onTodoClick={onTodoClick} />
             </section>

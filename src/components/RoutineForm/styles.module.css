@@ -4,13 +4,18 @@
 }
 
 .routineContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
     width: 70%;
     height: 100vh;
-    background-color: antiquewhite;
+    background-color: white;
 }
 
 .todosContainer {
     width: 30%;
     height: 100vh;
-    background-color: aqua;
+    background-color: beige;
 }

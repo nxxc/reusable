@@ -27,8 +27,13 @@ const routineSlice = createSlice({
                 return {
                     payload: {
                         id: nanoid(),
-                        title: 'hello',
-                        todos: data,
+                        title: data.title,
+                        todos: data.current.map((todo) => {
+                            return {
+                                ...todo,
+                                done: false,
+                            };
+                        }),
                     },
                 };
             },
