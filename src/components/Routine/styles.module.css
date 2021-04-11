@@ -1,2 +1,13 @@
 .container {
+    display: flex;
+    align-items: center;
+}
+
+.item {
+    width: 300px;
+    height: 400px;
+}
+
+.addButton {
+    height: 3rem;
 }
