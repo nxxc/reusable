@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import Todos from './Todos/Todos';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addRoutine } from '../../redux/routinesSlice';
+import { addRoutine } from '../../redux/slices/routinesSlice';
 
 import styles from './styles.module.css';
 
 import { Button, ButtonGroup, Input, List, ListItem } from '@material-ui/core';
 
 import { nanoid } from 'nanoid';
-import { addTodo } from '../../redux/todosSlice';
+import { addTodo } from '../../redux/slices/todosSlice';
 import { closeDrawer } from '../../redux/store';
 
 function RoutineForm() {
@@ -20,28 +20,36 @@ function RoutineForm() {
     const todos = useSelector((state) => state.todo);
     const dispatch = useDispatch();
 
-    const onTodoClick = (todo) => {
-        setCurrentItem((state) =>
-            currentItem.includes(todo) ? state : [...state, todo]
-        );
-    };
-
     const handleChange = (e) => {
         setValue(e.target.value);
     };
 
+    const onTodoClick = (todo) => {
+        if (currentItem.map((item) => item.todoId).includes(todo.id)) return;
+        setCurrentItem((state) => [...state, createNewItem(todo)]);
+    };
+
     const addItem = (e) => {
         if (value === '') return;
-        setCurrentItem((state) => {
-            return [
-                ...state,
-                {
-                    id: nanoid(),
-                    text: value,
-                },
-            ];
-        });
-        dispatch(addTodo(value));
+        let todo;
+        if (!todos.map((todo) => todo.text).includes(value)) {
+            // todos에 없을 때 추가
+            const action = addTodo(value);
+            todo = action.payload;
+            dispatch(action);
+        } else {
+            todo = todos.filter((todo) => todo.text === value)[0];
+        }
+
+        setCurrentItem((state) => [...state, createNewItem(todo)]);
+    };
+
+    const createNewItem = (todo) => {
+        return {
+            id: nanoid(),
+            todoId: todo.id,
+            text: todo.text,
+        };
     };
 
     const onSubmit = (e) => {

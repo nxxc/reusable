@@ -1,7 +1,7 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-import todoReducer from './todosSlice';
-import routineReducer from './routinesSlice';
-import itemReducer from './itemsSlice';
+import todoReducer from './slices/todosSlice';
+import routineReducer from './slices/routinesSlice';
+import itemReducer from './slices/itemsSlice';
 
 const initialState = {
     isOpen: false,

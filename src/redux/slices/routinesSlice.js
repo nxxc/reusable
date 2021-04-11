@@ -1,18 +1,10 @@
 import { nanoid } from 'nanoid';
+import { fetchRoutines } from '../service/routineService';
 
+// const isDev = process.env === 'Development';
 const { createSlice } = require('@reduxjs/toolkit');
 
-const initialState = [
-    {
-        id: 1,
-        title: 'first',
-        todos: [
-            { id: 1, text: 'one', done: false },
-            { id: 2, text: 'two', done: false },
-            { id: 3, text: 'three', done: false },
-        ],
-    },
-];
+const initialState = [];
 
 const routineSlice = createSlice({
     name: 'routine',
@@ -23,7 +15,6 @@ const routineSlice = createSlice({
                 state.push(action.payload);
             },
             prepare: (data) => {
-                console.log(data);
                 return {
                     payload: {
                         id: nanoid(),
@@ -37,6 +28,11 @@ const routineSlice = createSlice({
                     },
                 };
             },
+        },
+    },
+    extraReducers: {
+        [fetchRoutines.fulfilled]: (state, action) => {
+            return (state = action.payload);
         },
     },
 });

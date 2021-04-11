@@ -1,51 +1,45 @@
-import React, { useState } from 'react';
-import { Button, Drawer } from '@material-ui/core';
-import RoutineForm from '../RoutineForm/RoutineForm';
-import RoutineView from './RoutineView/RoutineView';
-import styles from './styles.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { openDrawer, closeDrawer } from '../../redux/store';
+import { Paper, List, ListItem, Checkbox } from '@material-ui/core';
 
-function Routine() {
-    const [open, setOpen] = useState(false);
-    const isOpen = useSelector((state) => state.base.isOpen);
-    const dispatch = useDispatch();
-    const routines = useSelector((state) => state.routine);
+import React, { useEffect, useState } from 'react';
+import { getItems, toggleItem } from '../../redux/service/itemsService';
+import styles from './style.module.css';
 
-    const toggleOpen = () => dispatch(openDrawer());
+function Routine({ routine }) {
+    const [items, setItems] = useState([]);
+    useEffect(() => {
+        getItems(routine.id).then((res) => {
+            setItems(res);
+        });
+    }, [routine.id]);
 
-    const toggleDrawer = (anchor, open) => (event) => {
-        if (
-            event.type === 'keydown' &&
-            (event.key === 'Tab' || event.key === 'Shift')
-        ) {
-            return;
-        }
-        dispatch(closeDrawer());
+    const onChange = (todo) => {
+        const newItems = items.map((item) => {
+            if (item.id === todo.id) {
+                toggleItem(item.id, !item.done);
+                return {
+                    ...item,
+                    done: !item.done,
+                };
+            }
+            return item;
+        });
+        setItems(newItems);
     };
     return (
-        <>
-            <section className={styles.container}>
-                {routines.map((routine) => (
-                    <RoutineView className={styles.item} routine={routine} />
+        <Paper className={styles.item}>
+            <h1>{routine.title}</h1>
+            <List>
+                {items.map((todo) => (
+                    <ListItem key={todo.id}>
+                        <Checkbox
+                            checked={todo.done}
+                            onChange={() => onChange(todo)}
+                        />
+                        {todo.text}
+                    </ListItem>
                 ))}
-
-                <Button
-                    onClick={toggleOpen}
-                    className={styles.addButton}
-                    variant='contained'
-                >
-                    Add
-                </Button>
-            </section>
-            <Drawer
-                anchor='right'
-                open={isOpen}
-                onClose={toggleDrawer('right', false)}
-            >
-                <RoutineForm />
-            </Drawer>
-        </>
+            </List>
+        </Paper>
     );
 }
 
