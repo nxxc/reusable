@@ -1,55 +1,41 @@
 import React, { useRef, useState } from 'react';
+
+import { addTodo } from '../../redux/todosSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 import styles from './styles.module.css';
 import Todos from './Todos/Todos';
+import { Button } from '@material-ui/core';
+import { addRoutine } from '../../redux/routinesSlice';
+import { addItem } from '../../redux/itemsSlice';
 
 function RoutineForm() {
     const inputRef = useRef();
-    const [current, setCurrent] = useState([]);
-    const [todos, setTodos] = useState([
-        { id: 1, text: 'hello' },
-        { id: 2, text: 'bye' },
-    ]);
+    const todos = useSelector((state) => state.todo);
+    const items = useSelector((state) => state.item);
+    const dispatch = useDispatch();
+    // const [todos, setTodos] = useState(initalTodos);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const text = inputRef.current.value;
-
-        //현재 추가하는게 todos에 없으면 추가
-        setTodos((state) => {
-            const allTodos = todos.map((todo) => todo.text);
-            if (!allTodos.includes(text)) {
-                return [...state, { id: new Date(), text }];
-            }
-            return state;
-        });
-
-        setCurrent((state) => {
-            const allTodos = current.map((todo) => todo.text);
-            if (allTodos.includes(text)) {
-                return state;
-            }
-
-            return [...state, { id: new Date(), text }];
-        });
+        dispatch(addTodo(text));
+        dispatch(addItem(text));
         inputRef.current.value = '';
     };
 
-    const onTodoClick = (e, todo) => {
-        e.preventDefault();
-
-        // 모든 현재 todo만들어서 있으면 추가 x
-        const allTodos = current.map((todo) => todo.text);
-        if (allTodos.includes(todo.text)) return;
-        setCurrent((state) => {
-            return [...state, todo];
-        });
+    const onTodoClick = (todo) => {
         console.log(todo);
+    };
+
+    const onSave = (current) => {
+        dispatch(addRoutine(current));
     };
     return (
         <div className={styles.container}>
             <section className={styles.routineContainer}>
-                {current.length
-                    ? current.map((todo) => <li key={todo}>{todo.text}</li>)
+                {items.length
+                    ? items.map((todo) => <li key={todo}>{todo.text}</li>)
                     : 'add todo'}
                 <form type='submit' onSubmit={handleSubmit}>
                     <input
@@ -58,6 +44,7 @@ function RoutineForm() {
                         ref={inputRef}
                     ></input>
                 </form>
+                <Button onClick={() => onSave(items)}>save</Button>
             </section>
             <section className={styles.todosContainer}>
                 <Todos todos={todos} onTodoClick={onTodoClick} />

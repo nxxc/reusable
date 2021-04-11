@@ -4,7 +4,6 @@ import React from 'react';
 import styles from './style.module.css';
 
 function RoutineView({ routine }) {
-    console.log(routine);
     return (
         <Paper className={styles.item}>
             <h1>{routine.title}</h1>

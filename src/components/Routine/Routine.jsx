@@ -3,38 +3,11 @@ import { Button, Drawer } from '@material-ui/core';
 import RoutineForm from '../RoutineForm/RoutineForm';
 import RoutineView from './RoutineView/RoutineView';
 import styles from './styles.module.css';
+import { useSelector } from 'react-redux';
 
 function Routine() {
     const [open, setOpen] = useState(false);
-    const [routines, setRoutines] = useState([
-        {
-            id: 1,
-            title: 'first',
-            todos: [
-                { id: 1, text: 'one', done: false },
-                { id: 2, text: 'two', done: false },
-                { id: 3, text: 'three', done: false },
-            ],
-        },
-        {
-            id: 1,
-            title: 'first',
-            todos: [
-                { id: 1, text: 'one', done: false },
-                { id: 2, text: 'two', done: false },
-                { id: 3, text: 'three', done: false },
-            ],
-        },
-        {
-            id: 1,
-            title: 'first',
-            todos: [
-                { id: 1, text: 'one', done: false },
-                { id: 2, text: 'two', done: false },
-                { id: 3, text: 'three', done: false },
-            ],
-        },
-    ]);
+    const routines = useSelector((state) => state.routine);
 
     const toggleOpen = () => setOpen(true);
 
