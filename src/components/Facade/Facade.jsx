@@ -9,16 +9,16 @@ import { fetchRoutines } from '../../redux/service/routineService';
 
 function Facade() {
     const isOpen = useSelector((state) => state.base.isOpen);
-    const dispatch = useDispatch();
     const routines = useSelector((state) => state.routine);
+    const dispatch = useDispatch();
 
-    const toggleOpen = () => dispatch(openDrawer());
+    const setDrawerOpen = () => dispatch(openDrawer());
 
     useEffect(() => {
         dispatch(fetchRoutines());
     }, [dispatch]);
 
-    const toggleDrawer = (anchor, open) => (event) => {
+    const setDrawerClose = (anchor, open) => (event) => {
         if (
             event.type === 'keydown' &&
             (event.key === 'Tab' || event.key === 'Shift')
@@ -40,7 +40,7 @@ function Facade() {
                 ))}
 
                 <Button
-                    onClick={toggleOpen}
+                    onClick={setDrawerOpen}
                     className={styles.addButton}
                     variant='contained'
                 >
@@ -50,7 +50,7 @@ function Facade() {
             <Drawer
                 anchor='right'
                 open={isOpen}
-                onClose={toggleDrawer('right', false)}
+                onClose={setDrawerClose('right', false)}
             >
                 <RoutineForm />
             </Drawer>

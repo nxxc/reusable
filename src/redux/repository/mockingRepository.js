@@ -17,7 +17,7 @@ export default class MockingRepository {
             ]);
         });
     }
-    addRoutine() {}
+    addRoutine(routine) {}
     getAllTodos() {}
     getItems(routineId) {
         return new Promise((resolve, reject) => {

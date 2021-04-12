@@ -5,11 +5,11 @@ const { createSlice, createAsyncThunk } = require('@reduxjs/toolkit');
 
 const initialState = [];
 
-// export const fetchItems = createAsyncThunk('fetchItems', async () => {
-//     const res = await repository.getItems(1);
-//     console.log(res);
-//     return res;
-// });
+export const fetchItems = createAsyncThunk('fetchItems', async () => {
+    const res = await repository.getItems(1);
+    console.log(res);
+    return res;
+});
 
 const itemSlice = createSlice({
     name: 'item',
@@ -29,11 +29,11 @@ const itemSlice = createSlice({
             },
         },
     },
-    // extraReducers: {
-    //     [fetchItems.fulfilled]: (state, action) => {
-    //         state.push(action.payload);
-    //     },
-    // },
+    extraReducers: {
+        [fetchItems.fulfilled]: (state, action) => {
+            state.push(action.payload);
+        },
+    },
 });
 
 export const { addItem } = itemSlice.actions;
