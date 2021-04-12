@@ -4,7 +4,9 @@ function Todos({ todos, onTodoClick }) {
     return (
         <div>
             {todos.map((todo) => (
-                <div onClick={() => onTodoClick(todo)}>{todo.text}</div>
+                <div key={todo.id} onClick={() => onTodoClick(todo)}>
+                    {todo.text}
+                </div>
             ))}
         </div>
     );

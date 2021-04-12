@@ -1,13 +1,13 @@
 import { Paper, List, ListItem, Checkbox } from '@material-ui/core';
 
 import React, { useEffect, useState } from 'react';
-import { getItems, toggleItem } from '../../redux/service/itemsService';
+import ItemService from '../../redux/service/itemsService';
 import styles from './style.module.css';
 
 function Routine({ routine }) {
     const [items, setItems] = useState([]);
     useEffect(() => {
-        getItems(routine.id).then((res) => {
+        ItemService.getItems(routine.id).then((res) => {
             setItems(res);
         });
     }, [routine.id]);
@@ -15,7 +15,7 @@ function Routine({ routine }) {
     const onChange = (todo) => {
         const newItems = items.map((item) => {
             if (item.id === todo.id) {
-                toggleItem(item.id, !item.done);
+                ItemService.toggleItem(item.id, !item.done);
                 return {
                     ...item,
                     done: !item.done,

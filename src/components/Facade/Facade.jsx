@@ -32,7 +32,11 @@ function Facade() {
         <>
             <section className={styles.container}>
                 {routines.map((routine) => (
-                    <RoutineView className={styles.item} routine={routine} />
+                    <RoutineView
+                        key={routine.id}
+                        className={styles.item}
+                        routine={routine}
+                    />
                 ))}
 
                 <Button

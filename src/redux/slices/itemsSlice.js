@@ -20,7 +20,6 @@ const itemSlice = createSlice({
                 state.push(action.payload);
             },
             prepare: (todo) => {
-                console.log(todo);
                 return {
                     payload: {
                         id: nanoid(),

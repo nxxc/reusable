@@ -81,7 +81,7 @@ function RoutineForm() {
                 />
                 <List>
                     {currentItem.map((item) => (
-                        <ListItem>{item.text}</ListItem>
+                        <ListItem key={item.id}>{item.text}</ListItem>
                     ))}
                 </List>
                 <Input
