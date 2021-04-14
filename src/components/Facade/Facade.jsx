@@ -6,17 +6,35 @@ import styles from './styles.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { openDrawer, closeDrawer } from '../../redux/store';
 import { fetchRoutines } from '../../redux/service/routineService';
+import { useHistory } from 'react-router';
+import { logout } from '../../redux/slices/userSlice';
 
 function Facade({ authService, db }) {
+    const user = useSelector((state) => state.user);
     const isOpen = useSelector((state) => state.base.isOpen);
     const routines = useSelector((state) => state.routine);
+    const history = useHistory();
     const dispatch = useDispatch();
 
     const setDrawerOpen = () => dispatch(openDrawer());
 
+    const onLogout = () => {
+        authService.logout();
+        dispatch(logout());
+        console.log(user);
+        history.push('/');
+    };
+
     useEffect(() => {
         dispatch(fetchRoutines());
     }, [dispatch]);
+
+    useEffect(() => {
+        console.log(user);
+        if (!user) {
+            history.push('/');
+        }
+    }, [history, user]);
 
     const setDrawerClose = (anchor, open) => (event) => {
         if (
@@ -54,6 +72,7 @@ function Facade({ authService, db }) {
             >
                 <RoutineForm />
             </Drawer>
+            <button onClick={onLogout}>logout</button>
         </>
     );
 }

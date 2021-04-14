@@ -2,6 +2,7 @@ import { configureStore, createSlice } from '@reduxjs/toolkit';
 import todoReducer from './slices/todosSlice';
 import routineReducer from './slices/routinesSlice';
 import itemReducer from './slices/itemsSlice';
+import userReducer from './slices/userSlice';
 
 const initialState = {
     isOpen: false,
@@ -32,5 +33,6 @@ export default configureStore({
         todo: todoReducer,
         routine: routineReducer,
         item: itemReducer,
+        user: userReducer,
     },
 });
