@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { login } from '../../redux/slices/userSlice';
-import * as LottiePlayer from '@lottiefiles/lottie-player';
+import '@lottiefiles/lottie-player';
 import styles from './styles.module.css';
 
 const userMaker = (user) => {
