@@ -11,8 +11,12 @@ import { Button, ButtonGroup, Input, List, ListItem } from '@material-ui/core';
 import { nanoid } from 'nanoid';
 import { addTodo } from '../../redux/slices/todosSlice';
 import { closeDrawer } from '../../redux/store';
+import FbRepository from '../../redux/firebase/firebaseRepository';
+
+const db = new FbRepository();
 
 function RoutineForm() {
+    const { uid: userId } = useSelector((state) => state.user);
     const [title, setTitle] = useState('');
     const [value, setValue] = useState('');
     const [currentItem, setCurrentItem] = useState([]);
@@ -58,12 +62,13 @@ function RoutineForm() {
     };
 
     const onSave = (current) => {
-        dispatch(
-            addRoutine({
-                title,
-                current,
-            })
-        );
+        const newRoutine = {
+            title,
+            current,
+        };
+        dispatch(addRoutine(newRoutine));
+        db.createRoutine(userId, newRoutine);
+
         setCurrentItem([]);
         setTitle('');
         dispatch(closeDrawer());

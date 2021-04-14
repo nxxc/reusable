@@ -35,7 +35,7 @@ function Facade({ authService, db }) {
         }
     }, [history, user]);
 
-    const setDrawerClose = (anchor, open) => (event) => {
+    const setDrawerClose = () => (event) => {
         if (
             event.type === 'keydown' &&
             (event.key === 'Tab' || event.key === 'Shift')

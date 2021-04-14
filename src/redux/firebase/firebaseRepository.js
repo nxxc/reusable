@@ -2,19 +2,13 @@ import { firebaseDatabase } from './firebase';
 
 class FbRepository {
     createRoutine(userId, routine) {
-        console.log(routine);
-        firebaseDatabase.ref(`${userId}/routines`).set(routine);
+        return firebaseDatabase.ref(`${userId}/routines`).push().set(routine);
     }
-    createItem(userId, item) {
-        console.log(item);
-        firebaseDatabase.ref(`${userId}/routines`).remove();
+    getRoutines(userId) {
+        return firebaseDatabase.ref(`${userId}/routines`).get();
     }
-    getItems() {}
-    getRoutines() {}
-    syncTodos() {}
-    syncItems() {}
     syncRoutines(userId, onUpdate) {
-        const ref = firebaseDatabase.ref(`${userId}/cards`);
+        const ref = firebaseDatabase.ref(`${userId}/routines`);
         ref.on('value', (snapshot) => {
             const value = snapshot.val();
             console.log(value);
