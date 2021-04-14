@@ -7,20 +7,19 @@ function Login({ authService }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const onLogin = async (e) => {
+    const onLogin = (e) => {
         const { provider } = e.target.dataset;
-        const { user } = await authService.login(provider);
-
-        const currentUser = {
-            uid: user.uid || '',
-            userName: user.displayName || '',
-            email: user.email || '',
-            photoURL: user.photoURL || '',
-        };
-
-        dispatch(login(currentUser));
-
-        history.push('/app');
+        authService.login(provider).then(({ user }) => {
+            console.log(user);
+            const currentUser = {
+                uid: user.uid || '',
+                userName: user.displayName || '',
+                email: user.email || '',
+                photoURL: user.photoURL || '',
+            };
+            dispatch(login(currentUser));
+            history.push('/app');
+        });
     };
 
     return (

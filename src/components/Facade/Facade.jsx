@@ -21,7 +21,6 @@ function Facade({ authService, db }) {
     const onLogout = () => {
         authService.logout();
         dispatch(logout());
-        console.log(user);
         history.push('/');
     };
 
