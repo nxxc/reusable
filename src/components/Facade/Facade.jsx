@@ -6,6 +6,9 @@ import styles from './styles.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { openDrawer, closeDrawer } from '../../redux/store';
 import { fetchRoutines } from '../../redux/service/routineService';
+import FbRepository from '../../redux/repository/firebaseRepository';
+
+const repo = new FbRepository();
 
 function Facade() {
     const isOpen = useSelector((state) => state.base.isOpen);

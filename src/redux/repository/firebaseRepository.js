@@ -1,8 +1,14 @@
-import { firebaseDatabase } from '../config/firebase';
+import { firebaseDatabase } from '../firebaseConfig/firebase';
 
 class FbRepository {
-    saveTodo() {}
+    createRoutine() {}
+    createTodo() {}
+    createItem() {}
+    getItems() {}
+    getRoutines() {}
     syncTodos() {}
+    syncItems() {}
+    syncRoutines() {}
 }
 
 export default FbRepository;
