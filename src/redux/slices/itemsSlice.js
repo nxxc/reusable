@@ -7,7 +7,6 @@ const initialState = [];
 
 export const fetchItems = createAsyncThunk('fetchItems', async () => {
     const res = await repository.getItems(1);
-    console.log(res);
     return res;
 });
 

@@ -29,7 +29,6 @@ function Facade({ authService, db }) {
     }, [dispatch]);
 
     useEffect(() => {
-        console.log(user);
         if (!user) {
             history.push('/');
         }

@@ -11,7 +11,6 @@ class FbRepository {
         const ref = firebaseDatabase.ref(`${userId}/routines`);
         ref.on('value', (snapshot) => {
             const value = snapshot.val();
-            console.log(value);
             value && onUpdate(value);
         });
         return () => ref.off();
