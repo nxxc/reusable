@@ -6,3 +6,13 @@
     height: 600px;
     margin: 0.8em;
 }
+
+.header {
+    width: 100%;
+    text-align: center;
+}
+
+.listContainer {
+    width: 100%;
+    overflow-y: auto;
+}

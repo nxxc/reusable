@@ -1,32 +1,40 @@
 import { Paper, List, ListItem, Checkbox } from '@material-ui/core';
 
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './style.module.css';
 
 function Routine({ routine }) {
     const { title, current } = routine;
-    const items = Object.values(current);
+    const [items, setItems] = useState(Object.values(current));
 
-    const onChange = (todo) => {
-        console.log(todo);
+    const onClick = (id) => {
+        const newItems = items.map((item) =>
+            item.id === id ? { ...item, done: !item.done } : item
+        );
+        setItems(newItems);
     };
 
     return (
         <Paper className={styles.item}>
-            <header>
+            <header className={styles.header}>
                 <h1>{title}</h1>
             </header>
-            <List>
-                {items.map((todo) => (
-                    <ListItem key={todo.id}>
-                        <Checkbox
-                            checked={todo.done}
-                            onChange={() => onChange(todo)}
-                        />
-                        {todo.text}
-                    </ListItem>
-                ))}
-            </List>
+            <section className={styles.listContainer}>
+                <List>
+                    {items.map((item) => {
+                        console.log(item);
+                        return (
+                            <ListItem key={item.id}>
+                                <Checkbox
+                                    checked={item.done}
+                                    onClick={() => onClick(item.id)}
+                                />
+                                {item.text}
+                            </ListItem>
+                        );
+                    })}
+                </List>
+            </section>
         </Paper>
     );
 }

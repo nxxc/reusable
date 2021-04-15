@@ -2,7 +2,12 @@ import { firebaseDatabase } from './firebase';
 
 class FbRepository {
     createRoutine(userId, routine) {
-        return firebaseDatabase.ref(`${userId}/routines`).push().set(routine);
+        const ref = firebaseDatabase.ref(`${userId}/routines`).push();
+        const routineId = ref.key;
+        return ref.set({
+            routineId,
+            ...routine,
+        });
     }
     getRoutines(userId) {
         return firebaseDatabase.ref(`${userId}/routines`).get();

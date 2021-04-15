@@ -111,9 +111,7 @@ function RoutineForm() {
                     </Button>
                 </ButtonGroup>
             </form>
-            <section className={styles.todosContainer}>
-                <Todos todos={todos} onTodoClick={onTodoClick} />
-            </section>
+            <Todos todos={todos} onTodoClick={onTodoClick} />
         </div>
     );
 }
