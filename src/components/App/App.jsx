@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { Button, Drawer } from '@material-ui/core';
+import { Drawer } from '@material-ui/core';
 import RoutineForm from '../RoutineForm/RoutineForm';
-import Routine from '../Routine/Routine';
-import styles from './styles.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { openDrawer, closeDrawer } from '../../redux/store';
 // import { fetchRoutines } from '../../redux/service/routineService';
 import { useHistory } from 'react-router';
 import { logout } from '../../redux/slices/userSlice';
 import { rfetchRoutines } from '../../redux/slices/routinesSlice';
+import Contents from '../Container/Contents/Contents';
+import Header from '../Container/Header/Header';
 
 function App({ authService, db }) {
     const user = useSelector((state) => state.user);
@@ -24,15 +24,16 @@ function App({ authService, db }) {
         dispatch(logout());
         history.push('/');
     };
-    useEffect(() => {
-        dispatch(rfetchRoutines(user.uid));
-    }, [dispatch, user.uid]);
 
     useEffect(() => {
         if (!user) {
             history.push('/');
         }
     }, [history, user]);
+
+    useEffect(() => {
+        dispatch(rfetchRoutines(user.uid));
+    }, [dispatch, user.uid]);
 
     const setDrawerClose = () => (event) => {
         if (
@@ -46,23 +47,12 @@ function App({ authService, db }) {
 
     return (
         <>
-            <section className={styles.container}>
-                {routines.map((routine) => (
-                    <Routine
-                        key={routine.id}
-                        className={styles.item}
-                        routine={routine}
-                    />
-                ))}
-
-                <Button
-                    onClick={setDrawerOpen}
-                    className={styles.addButton}
-                    variant='contained'
-                >
-                    Add
-                </Button>
-            </section>
+            {/* header? */}
+            <Header onLogout={onLogout} />
+            {/* contents? */}
+            {/* userInfo */}
+            <Contents routines={routines} setDrawerOpen={setDrawerOpen} />
+            {/* data visualize */}
             <Drawer
                 anchor='right'
                 open={isOpen}
@@ -70,7 +60,6 @@ function App({ authService, db }) {
             >
                 <RoutineForm />
             </Drawer>
-            <button onClick={onLogout}>logout</button>
         </>
     );
 }
