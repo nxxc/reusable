@@ -1,14 +1,16 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
-import Facade from './components/Facade/Facade';
+
+import App from './components/App/App';
 import Login from './components/Login/Login';
+
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import AuthService from './redux/firebase/authSerive';
 import FbRepository from './redux/firebase/firebaseRepository';
 
 const authService = new AuthService();
 const db = new FbRepository();
 
-function App() {
+function AppRouter() {
     return (
         <Router>
             <Switch>
@@ -16,7 +18,7 @@ function App() {
                     <Login authService={authService} />
                 </Route>
                 <Route path='/app' exact>
-                    <Facade authService={authService} db={db} />
+                    <App authService={authService} db={db} />
                 </Route>
                 <Route path='/id'>todo detail</Route>
             </Switch>
@@ -24,4 +26,4 @@ function App() {
     );
 }
 
-export default App;
+export default AppRouter;

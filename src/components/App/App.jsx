@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { Button, Drawer } from '@material-ui/core';
 import RoutineForm from '../RoutineForm/RoutineForm';
-import RoutineView from '../Routine/Routine';
+import Routine from '../Routine/Routine';
 import styles from './styles.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { openDrawer, closeDrawer } from '../../redux/store';
-import { fetchRoutines } from '../../redux/service/routineService';
+// import { fetchRoutines } from '../../redux/service/routineService';
 import { useHistory } from 'react-router';
 import { logout } from '../../redux/slices/userSlice';
+import { rfetchRoutines } from '../../redux/slices/routinesSlice';
 
-function Facade({ authService, db }) {
+function App({ authService, db }) {
     const user = useSelector((state) => state.user);
     const isOpen = useSelector((state) => state.base.isOpen);
     const routines = useSelector((state) => state.routine);
@@ -23,10 +24,9 @@ function Facade({ authService, db }) {
         dispatch(logout());
         history.push('/');
     };
-
     useEffect(() => {
-        dispatch(fetchRoutines());
-    }, [dispatch]);
+        dispatch(rfetchRoutines(user.uid));
+    }, [dispatch, user.uid]);
 
     useEffect(() => {
         if (!user) {
@@ -48,7 +48,7 @@ function Facade({ authService, db }) {
         <>
             <section className={styles.container}>
                 {routines.map((routine) => (
-                    <RoutineView
+                    <Routine
                         key={routine.id}
                         className={styles.item}
                         routine={routine}
@@ -75,4 +75,4 @@ function Facade({ authService, db }) {
     );
 }
 
-export default Facade;
+export default App;

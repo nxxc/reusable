@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Todos from './Todos/Todos';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addRoutine } from '../../redux/slices/routinesSlice';
+import { raddRoutine } from '../../redux/slices/routinesSlice';
 
 import styles from './styles.module.css';
 
@@ -11,9 +11,6 @@ import { Button, ButtonGroup, Input, List, ListItem } from '@material-ui/core';
 import { nanoid } from 'nanoid';
 import { addTodo } from '../../redux/slices/todosSlice';
 import { closeDrawer } from '../../redux/store';
-import FbRepository from '../../redux/firebase/firebaseRepository';
-
-const db = new FbRepository();
 
 function RoutineForm() {
     const { uid: userId } = useSelector((state) => state.user);
@@ -53,6 +50,7 @@ function RoutineForm() {
             id: nanoid(),
             todoId: todo.id,
             text: todo.text,
+            done: false,
         };
     };
 
@@ -66,8 +64,7 @@ function RoutineForm() {
             title,
             current,
         };
-        dispatch(addRoutine(newRoutine));
-        db.createRoutine(userId, newRoutine);
+        dispatch(raddRoutine({ userId, newRoutine }));
 
         setCurrentItem([]);
         setTitle('');

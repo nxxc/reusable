@@ -1,33 +1,17 @@
 import { Paper, List, ListItem, Checkbox } from '@material-ui/core';
 
-import React, { useEffect, useState } from 'react';
-import ItemService from '../../redux/service/itemsService';
+import React from 'react';
 import styles from './style.module.css';
 
 function Routine({ routine }) {
-    const [items, setItems] = useState([]);
-    useEffect(() => {
-        ItemService.getItems(routine.id).then((res) => {
-            setItems(res);
-        });
-    }, [routine.id]);
+    const { title, current } = routine;
+    const items = Object.values(current);
 
-    const onChange = (todo) => {
-        const newItems = items.map((item) => {
-            if (item.id === todo.id) {
-                ItemService.toggleItem(item.id, !item.done);
-                return {
-                    ...item,
-                    done: !item.done,
-                };
-            }
-            return item;
-        });
-        setItems(newItems);
-    };
+    const onChange = (todo) => {};
+
     return (
         <Paper className={styles.item}>
-            <h1>{routine.title}</h1>
+            <h1>{title}</h1>
             <List>
                 {items.map((todo) => (
                     <ListItem key={todo.id}>
