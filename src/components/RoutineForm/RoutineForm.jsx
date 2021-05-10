@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import Todos from './Todos/Todos';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { raddRoutine } from '../../redux/slices/routinesSlice';
+import { addRoutineEvent } from '../../redux/slices/routinesSlice';
 
 import styles from './styles.module.css';
 
 import { Button, ButtonGroup, Input, List, ListItem } from '@material-ui/core';
 
-import { nanoid } from 'nanoid';
 import { addTodo } from '../../redux/slices/todosSlice';
 import { closeDrawer } from '../../redux/store';
+import {createItem} from "../Factory/ItemFactory";
+import {createRoutine} from "../Factory/RoutineFactory";
 
 function RoutineForm() {
-    // const { uid:} = useSelector((state) => state.user);
     const [title, setTitle] = useState('');
     const [value, setValue] = useState('');
     const [currentItem, setCurrentItem] = useState([]);
@@ -27,7 +27,7 @@ function RoutineForm() {
 
     const onTodoClick = (todo) => {
         if (currentItem.map((item) => item.todoId).includes(todo.id)) return;
-        setCurrentItem((state) => [...state, createNewItem(todo)]);
+        setCurrentItem((state) => [...state, createItem(todo)]);
     };
 
     const addItem = (e) => {
@@ -42,16 +42,7 @@ function RoutineForm() {
             todo = todos.filter((todo) => todo.text === value)[0];
         }
 
-        setCurrentItem((state) => [...state, createNewItem(todo)]);
-    };
-
-    const createNewItem = (todo) => {
-        return {
-            id: nanoid(),
-            todoId: todo.id,
-            text: todo.text,
-            done: false,
-        };
+        setCurrentItem((state) => [...state, createItem(todo)]);
     };
 
     const onSubmit = (e) => {
@@ -59,17 +50,16 @@ function RoutineForm() {
         setValue('');
     };
 
-    const onSave = (current) => {
-        const newRoutine = {
-            title,
-            current,
-        };
-        dispatch(raddRoutine({ newRoutine }));
+    const onSave = () => {
+        const newRoutine = createRoutine(title, currentItem);
+
+        dispatch(addRoutineEvent(newRoutine));
 
         setCurrentItem([]);
         setTitle('');
         dispatch(closeDrawer());
     };
+
     return (
         <div className={styles.container}>
             <form className={styles.routineContainer} onSubmit={onSubmit}>
@@ -105,7 +95,7 @@ function RoutineForm() {
                     <Button
                         variant='contained'
                         color='secondary'
-                        onClick={() => onSave(currentItem)}
+                        onClick={onSave}
                     >
                         save routine
                     </Button>
