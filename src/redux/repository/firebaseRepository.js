@@ -1,4 +1,4 @@
-import { firebaseDatabase } from './firebase';
+import { firebaseDatabase } from '../config/firebaseConfig';
 
 class FbRepository {
     createRoutine(userId, routine) {
