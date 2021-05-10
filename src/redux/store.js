@@ -33,6 +33,6 @@ export default configureStore({
         todo: todoReducer,
         routine: routineReducer,
         item: itemReducer,
-        user: userReducer,
+        // user: userReducer,
     },
 });

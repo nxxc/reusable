@@ -13,7 +13,7 @@ import { addTodo } from '../../redux/slices/todosSlice';
 import { closeDrawer } from '../../redux/store';
 
 function RoutineForm() {
-    const { uid: userId } = useSelector((state) => state.user);
+    // const { uid:} = useSelector((state) => state.user);
     const [title, setTitle] = useState('');
     const [value, setValue] = useState('');
     const [currentItem, setCurrentItem] = useState([]);
@@ -64,7 +64,7 @@ function RoutineForm() {
             title,
             current,
         };
-        dispatch(raddRoutine({ userId, newRoutine }));
+        dispatch(raddRoutine({ newRoutine }));
 
         setCurrentItem([]);
         setTitle('');

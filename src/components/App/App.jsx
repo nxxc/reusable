@@ -10,30 +10,32 @@ import { rfetchRoutines } from '../../redux/slices/routinesSlice';
 import Contents from '../Container/Contents/Contents';
 import Header from '../Container/Header/Header';
 
-function App({ authService, db }) {
-    const user = useSelector((state) => state.user);
+function App({ db }) {
+    // const user = useSelector((state) => state.user);
     const isOpen = useSelector((state) => state.base.isOpen);
     const routines = useSelector((state) => state.routine);
-    const history = useHistory();
+    // const history = useHistory();
     const dispatch = useDispatch();
 
     const setDrawerOpen = () => dispatch(openDrawer());
 
-    const onLogout = () => {
-        authService.logout();
-        dispatch(logout());
-        history.push('/');
-    };
+    // const
+    {/*// onLogout = () =*/}
+    // {
+    //     authService.logout();
+    //     dispatch(logout());
+    //     history.push('/');
+    // };
 
-    useEffect(() => {
-        if (!user) {
-            history.push('/');
-        }
-    }, [history, user]);
+    // useEffect(() => {
+    //     if (!user) {
+    //         history.push('/');
+    //     }
+    // }, [history, user]);
 
-    useEffect(() => {
-        dispatch(rfetchRoutines(user.uid));
-    }, [dispatch, user.uid]);
+    // useEffect(() => {
+    //     dispatch(rfetchRoutines(user.uid));
+    // }, [dispatch, user.uid]);
 
     const setDrawerClose = () => (event) => {
         if (
@@ -48,7 +50,9 @@ function App({ authService, db }) {
     return (
         <>
             {/* header? */}
-            <Header onLogout={onLogout} />
+            <Header
+                // onLogout={onLogout}
+            />
             {/* contents? */}
             {/* userInfo */}
             <Contents routines={routines} setDrawerOpen={setDrawerOpen} />

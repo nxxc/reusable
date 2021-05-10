@@ -1,16 +1,17 @@
 import { nanoid } from 'nanoid';
-import FbRepository from '../firebase/firebaseRepository';
+// import FbRepository from '../firebase/firebaseRepository';
+import MockingRepository from "../repository/mockingRepository";
 
 const { createSlice, createAsyncThunk } = require('@reduxjs/toolkit');
 
-const db = new FbRepository();
+const db = new MockingRepository();
 
 const initialState = [];
 
 export const rfetchRoutines = createAsyncThunk(
     'routines/fetch',
     async (userId, _) => {
-        const res = await db.getRoutines(userId);
+        const res = await db.getRoutines();
         const routines = Object.values(res.toJSON());
         return routines;
     }
@@ -19,10 +20,11 @@ export const rfetchRoutines = createAsyncThunk(
 export const raddRoutine = createAsyncThunk(
     'routines/add',
     async (data, { dispatch }) => {
-        const res = await db.createRoutine(data.userId, data.newRoutine);
-        dispatch(rfetchRoutines(data.userId));
+        const res = await db.createRoutine(data.newRoutine);
+        dispatch(rfetchRoutines());
     }
 );
+
 const routineSlice = createSlice({
     name: 'routine',
     initialState,

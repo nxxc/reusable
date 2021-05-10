@@ -1,5 +1,5 @@
 export default class MockingRepository {
-    getAllRoutines() {
+    getRoutines() {
         return new Promise((resolve, reject) => {
             resolve([
                 {
@@ -17,7 +17,9 @@ export default class MockingRepository {
             ]);
         });
     }
-    addRoutine(routine) {}
+    createRoutine(routine) {
+
+    }
     getAllTodos() {}
     getItems(routineId) {
         return new Promise((resolve, reject) => {
