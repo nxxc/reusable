@@ -1,7 +1,8 @@
-import { firebaseDatabase } from './firebase';
+import { firebaseDatabase } from '../config/firebaseConfig';
 
 class FbRepository {
-    createRoutine(userId, routine) {
+
+    addRoutine(userId, routine) {
         const ref = firebaseDatabase.ref(`${userId}/routines`).push();
         const routineId = ref.key;
         return ref.set({
@@ -9,17 +10,19 @@ class FbRepository {
             ...routine,
         });
     }
+
     getRoutines(userId) {
         return firebaseDatabase.ref(`${userId}/routines`).get();
     }
-    syncRoutines(userId, onUpdate) {
-        const ref = firebaseDatabase.ref(`${userId}/routines`);
-        ref.on('value', (snapshot) => {
-            const value = snapshot.val();
-            value && onUpdate(value);
+
+    getItems(userId, routineId) {
+        return new Promise((resolve, reject) => {
+            resolve([
+                { id: 1, text: 'item' + this.id, done: false }
+            ]);
         });
-        return () => ref.off();
     }
+
 }
 
 export default FbRepository;

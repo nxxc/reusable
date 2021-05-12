@@ -1,62 +1,32 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Drawer } from '@material-ui/core';
 import RoutineForm from '../RoutineForm/RoutineForm';
-import { useDispatch, useSelector } from 'react-redux';
-import { openDrawer, closeDrawer } from '../../redux/store';
-// import { fetchRoutines } from '../../redux/service/routineService';
-import { useHistory } from 'react-router';
-import { logout } from '../../redux/slices/userSlice';
-import { rfetchRoutines } from '../../redux/slices/routinesSlice';
+import {useDispatch, useSelector} from 'react-redux';
 import Contents from '../Container/Contents/Contents';
 import Header from '../Container/Header/Header';
+import {closeDrawer} from "../../redux/store";
 
-function App({ authService, db }) {
-    const user = useSelector((state) => state.user);
+function App() {
     const isOpen = useSelector((state) => state.base.isOpen);
-    const routines = useSelector((state) => state.routine);
-    const history = useHistory();
     const dispatch = useDispatch();
 
-    const setDrawerOpen = () => dispatch(openDrawer());
+    const setDrawerClose = (event) => {
+        const isKeyDown = event.type === 'keydown'
+        const isTabOrShift = event.key === 'Tab' || event.key === 'Shift'
 
-    const onLogout = () => {
-        authService.logout();
-        dispatch(logout());
-        history.push('/');
-    };
+        if (isKeyDown && isTabOrShift) return;
 
-    useEffect(() => {
-        if (!user) {
-            history.push('/');
-        }
-    }, [history, user]);
-
-    useEffect(() => {
-        dispatch(rfetchRoutines(user.uid));
-    }, [dispatch, user.uid]);
-
-    const setDrawerClose = () => (event) => {
-        if (
-            event.type === 'keydown' &&
-            (event.key === 'Tab' || event.key === 'Shift')
-        ) {
-            return;
-        }
         dispatch(closeDrawer());
     };
 
     return (
         <>
-            {/* header? */}
-            <Header onLogout={onLogout} />
-            {/* contents? */}
-            {/* userInfo */}
-            <Contents routines={routines} setDrawerOpen={setDrawerOpen} />
-            {/* data visualize */}
+            <Header />
+            <Contents />
             <Drawer
                 anchor='right'
                 open={isOpen}
-                onClose={setDrawerClose('right', false)}
+                onClose={e => setDrawerClose(e)}
             >
                 <RoutineForm />
             </Drawer>

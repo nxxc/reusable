@@ -1,50 +1,35 @@
 export default class MockingRepository {
-    getAllRoutines() {
+
+    constructor() {
+        this.routines = [1, 2, 3].map(idx => ({ id: idx, title: 'routine' + idx }));
+    }
+
+    addRoutine(userId, routine) {
         return new Promise((resolve, reject) => {
-            resolve([
-                {
-                    id: 1,
-                    title: 'first',
-                },
-                {
-                    id: 2,
-                    title: 'tw',
-                },
-                {
-                    id: 3,
-                    title: 'th',
-                },
-            ]);
+            const nextId = Math.max(...this.routines.map(routine => routine.id)) + 1
+            const newRoutine = { id: nextId, title: routine.title }
+
+            this.routines = [...this.routines, { ...newRoutine }];
+
+            resolve(newRoutine);
         });
     }
-    addRoutine(routine) {}
-    getAllTodos() {}
-    getItems(routineId) {
+
+    getRoutines(userId) {
         return new Promise((resolve, reject) => {
-            let items = [
-                {
-                    id: routineId === 1 ? 1 : 4,
-                    text: routineId === 1 ? 1 : 4,
-                    done: false,
-                },
-                {
-                    id: routineId === 1 ? 2 : 5,
-                    text: routineId === 1 ? 2 : 5,
-                    done: false,
-                },
-                {
-                    id: routineId === 1 ? 3 : 6,
-                    text: routineId === 1 ? 3 : 6,
-                    done: false,
-                },
-            ];
+            resolve(this.routines);
+        });
+    }
+
+    getItems(userId, routineId) {
+        return new Promise((resolve, reject) => {
+            const items = [1, 2, 3].map(idx => {
+                const itemId = routineId + '-' + idx
+                return { id: itemId, text: 'item-' + itemId, done: false }
+            });
+
             resolve(items);
         });
     }
-    updateItem(itemId, bool) {
-        return new Promise((res, rej) => {
-            res(true);
-            rej(false);
-        });
-    }
+
 }

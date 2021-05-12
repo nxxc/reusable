@@ -1,59 +1,39 @@
-import { nanoid } from 'nanoid';
-import FbRepository from '../firebase/firebaseRepository';
+import {addRoutine, getRoutines} from "../service/routineService";
 
-const { createSlice, createAsyncThunk } = require('@reduxjs/toolkit');
+const {createSlice, createAsyncThunk} = require('@reduxjs/toolkit');
 
-const db = new FbRepository();
-
-const initialState = [];
-
-export const rfetchRoutines = createAsyncThunk(
+export const fetchRoutinesEvent = createAsyncThunk(
     'routines/fetch',
-    async (userId, _) => {
-        const res = await db.getRoutines(userId);
-        const routines = Object.values(res.toJSON());
-        return routines;
+    async () => {
+        return await getRoutines();
     }
 );
 
-export const raddRoutine = createAsyncThunk(
+export const addRoutineEvent = createAsyncThunk(
     'routines/add',
-    async (data, { dispatch }) => {
-        const res = await db.createRoutine(data.userId, data.newRoutine);
-        dispatch(rfetchRoutines(data.userId));
+    async (routine) => {
+        const res = await addRoutine(routine);
+        console.log(res);
+        return res;
     }
 );
+
 const routineSlice = createSlice({
-    name: 'routine',
-    initialState,
+    name: 'routines',
+    initialState: [],
     reducers: {
-        addRoutine: {
-            reducer: (state, action) => {
-                state.push(action.payload);
-            },
-            prepare: (data) => {
-                return {
-                    payload: {
-                        id: nanoid(),
-                        title: data.title,
-                        todos: data.current.map((todo) => {
-                            return {
-                                ...todo,
-                                done: false,
-                            };
-                        }),
-                    },
-                };
-            },
-        },
+
     },
     extraReducers: {
-        [rfetchRoutines.fulfilled]: (state, action) => {
+        [fetchRoutinesEvent.fulfilled]: (state, action) => {
             return (state = action.payload);
         },
+        [addRoutineEvent.fulfilled]: (state, action) => {
+            console.log(action.payload);
+            state.push(action.payload);
+            return state;
+        }
     },
 });
-
-export const { addRoutine } = routineSlice.actions;
 
 export default routineSlice.reducer;
