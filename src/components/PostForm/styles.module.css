@@ -3,7 +3,7 @@
     display: flex;
 }
 
-.routineContainer {
+.postContainer {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -12,10 +12,4 @@
     width: 70%;
     height: 100vh;
     background-color: white;
-}
-
-.todosContainer {
-    width: 30%;
-    height: 100vh;
-    background-color: antiquewhite;
 }

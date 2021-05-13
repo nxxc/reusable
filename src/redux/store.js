@@ -1,7 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-import todoReducer from './slices/todosSlice';
-import routineReducer from './slices/routinesSlice';
-import itemReducer from './slices/itemsSlice';
+import stockReducer from './slices/stockSlice';
+import postReducer from './slices/postSlice';
 import userReducer from './slices/userSlice';
 
 const initialState = {
@@ -30,9 +29,8 @@ export const { openDrawer, closeDrawer } = defaultSlice.actions;
 export default configureStore({
     reducer: {
         base: defaultSlice.reducer,
-        todo: todoReducer,
-        routine: routineReducer,
-        item: itemReducer,
+        stock: stockReducer,
+        post: postReducer,
         // user: userReducer,
     },
 });

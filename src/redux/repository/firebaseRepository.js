@@ -2,20 +2,20 @@ import { firebaseDatabase } from '../config/firebaseConfig';
 
 class FbRepository {
 
-    addRoutine(userId, routine) {
-        const ref = firebaseDatabase.ref(`${userId}/routines`).push();
-        const routineId = ref.key;
+    addPost(userId, post) {
+        const ref = firebaseDatabase.ref(`${userId}/posts`).push();
+        const postId = ref.key;
         return ref.set({
-            routineId,
-            ...routine,
+            postId,
+            ...post,
         });
     }
 
-    getRoutines(userId) {
-        return firebaseDatabase.ref(`${userId}/routines`).get();
+    getPosts(userId) {
+        return firebaseDatabase.ref(`${userId}/posts`).get();
     }
 
-    getItems(userId, routineId) {
+    getItems(userId, postId) {
         return new Promise((resolve, reject) => {
             resolve([
                 { id: 1, text: 'item' + this.id, done: false }

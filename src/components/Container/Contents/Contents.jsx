@@ -1,27 +1,27 @@
 import { Button } from '@material-ui/core';
 import React, {useEffect} from 'react';
-import Routine from '../../Routine/Routine';
+import Post from '../../Post/Post';
 import styles from './styles.module.css';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import {closeDrawer, openDrawer} from "../../../redux/store";
-import {fetchRoutinesEvent} from "../../../redux/slices/routinesSlice";
+import {getPostsEvent} from "../../../redux/slices/postSlice";
 import {useDispatch, useSelector} from "react-redux";
 
 function Contents() {
-    const routines = useSelector(state => state.routine);
+    const posts = useSelector(state => state.post);
     const dispatch = useDispatch();
 
     const setDrawerOpen = () => dispatch(openDrawer());
 
     useEffect(() => {
-        dispatch(fetchRoutinesEvent());
+        dispatch(getPostsEvent());
     }, [dispatch]);
 
     return (
         <section className={styles.container}>
-            {routines.map((routine) => (
-                <Routine key={routine.id} routine={routine} />
-            ))}
+            {posts.map(
+                post => <Post key={post.id} post={post} />
+            )}
 
             <Button onClick={setDrawerOpen} className={styles.addButton}>
                 <AddCircleOutlineIcon />

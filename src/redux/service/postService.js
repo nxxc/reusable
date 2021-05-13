@@ -1,15 +1,15 @@
 import repository from '../repository/repoAware';
 
-export function getRoutines() {
+export function getPosts() {
     // TODO : userId refactoring
     const userId = 1;
 
-    return repository.getRoutines(userId);
+    return repository.getPosts(userId);
 }
 
-export function addRoutine(routine) {
+export function addPost(post) {
     // TODO : userId refactoring
     const userId = 1;
 
-    return repository.addRoutine(userId, routine);
+    return repository.addPost(userId, post);
 }

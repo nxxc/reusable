@@ -4,11 +4,11 @@ const { createSlice } = require('@reduxjs/toolkit');
 
 const initialState = [{ id: 1, text: 'test' }];
 
-const todoSlice = createSlice({
-    name: 'todo',
+const stockSlice = createSlice({
+    name: 'stock',
     initialState,
     reducers: {
-        addTodo: {
+        addStock: {
             reducer: (state, action) => {
                 state.push(action.payload);
             },
@@ -24,6 +24,6 @@ const todoSlice = createSlice({
     },
 });
 
-export const { addTodo } = todoSlice.actions;
+export const { addStock } = stockSlice.actions;
 
-export default todoSlice.reducer;
+export default stockSlice.reducer;
