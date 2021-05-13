@@ -5,8 +5,8 @@ import styles from './style.module.css';
 import {useDispatch} from "react-redux";
 import {getItems} from "../../redux/service/itemService";
 
-function Routine({routine}) {
-    const {id, title} = routine;
+function Post({post}) {
+    const {id, title} = post;
     const [items, setItems] = useState([]);
     const dispatch = useDispatch();
 
@@ -42,4 +42,4 @@ function Routine({routine}) {
     );
 }
 
-export default Routine;
+export default Post;

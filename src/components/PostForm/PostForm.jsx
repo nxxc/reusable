@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Todos from './Todos/Todos';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addRoutineEvent } from '../../redux/slices/routinesSlice';
+import { addPostEvent } from '../../redux/slices/postSlice';
 
 import styles from './styles.module.css';
 
@@ -11,9 +11,9 @@ import { Button, ButtonGroup, Input, List, ListItem } from '@material-ui/core';
 import { addTodo } from '../../redux/slices/todosSlice';
 import { closeDrawer } from '../../redux/store';
 import {createItem} from "../Factory/ItemFactory";
-import {createRoutine} from "../Factory/RoutineFactory";
+import {createPost} from "../Factory/PostFactory";
 
-function RoutineForm() {
+function PostForm() {
     const [title, setTitle] = useState('');
     const [value, setValue] = useState('');
     const [currentItem, setCurrentItem] = useState([]);
@@ -51,9 +51,9 @@ function RoutineForm() {
     };
 
     const onSave = () => {
-        const newRoutine = createRoutine(title, currentItem);
+        const newPost = createPost(title, currentItem);
 
-        dispatch(addRoutineEvent(newRoutine));
+        dispatch(addPostEvent(newPost));
 
         setCurrentItem([]);
         setTitle('');
@@ -62,7 +62,7 @@ function RoutineForm() {
 
     return (
         <div className={styles.container}>
-            <form className={styles.routineContainer} onSubmit={onSubmit}>
+            <form className={styles.postContainer} onSubmit={onSubmit}>
                 <Input
                     id='title'
                     type='text'
@@ -97,7 +97,7 @@ function RoutineForm() {
                         color='secondary'
                         onClick={onSave}
                     >
-                        save routine
+                        save
                     </Button>
                 </ButtonGroup>
             </form>
@@ -106,4 +106,4 @@ function RoutineForm() {
     );
 }
 
-export default RoutineForm;
+export default PostForm;

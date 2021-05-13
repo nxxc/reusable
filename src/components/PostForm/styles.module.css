@@ -3,7 +3,7 @@
     display: flex;
 }
 
-.routineContainer {
+.postContainer {
     display: flex;
     flex-direction: column;
     justify-content: space-around;

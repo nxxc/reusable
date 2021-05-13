@@ -1,6 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import todoReducer from './slices/todosSlice';
-import routineReducer from './slices/routinesSlice';
+import postReducer from './slices/postSlice';
 import itemReducer from './slices/itemsSlice';
 import userReducer from './slices/userSlice';
 
@@ -31,7 +31,7 @@ export default configureStore({
     reducer: {
         base: defaultSlice.reducer,
         todo: todoReducer,
-        routine: routineReducer,
+        post: postReducer,
         item: itemReducer,
         // user: userReducer,
     },

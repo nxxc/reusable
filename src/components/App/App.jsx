@@ -1,6 +1,6 @@
 import React from 'react';
 import { Drawer } from '@material-ui/core';
-import RoutineForm from '../RoutineForm/RoutineForm';
+import PostForm from '../PostForm/PostForm';
 import {useDispatch, useSelector} from 'react-redux';
 import Contents from '../Container/Contents/Contents';
 import Header from '../Container/Header/Header';
@@ -28,7 +28,7 @@ function App() {
                 open={isOpen}
                 onClose={e => setDrawerClose(e)}
             >
-                <RoutineForm />
+                <PostForm />
             </Drawer>
         </>
     );

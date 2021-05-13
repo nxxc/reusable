@@ -1,30 +1,30 @@
 export default class MockingRepository {
 
     constructor() {
-        this.routines = [1, 2, 3].map(idx => ({ id: idx, title: 'routine' + idx }));
+        this.posts = [1, 2, 3].map(idx => ({ id: idx, title: 'post' + idx }));
     }
 
-    addRoutine(userId, routine) {
+    addPost(userId, post) {
         return new Promise((resolve, reject) => {
-            const nextId = Math.max(...this.routines.map(routine => routine.id)) + 1
-            const newRoutine = { id: nextId, title: routine.title }
+            const nextId = Math.max(...this.posts.map(post => post.id)) + 1
+            const newPost = { id: nextId, title: post.title }
 
-            this.routines = [...this.routines, { ...newRoutine }];
+            this.posts = [...this.posts, { ...newPost }];
 
-            resolve(newRoutine);
+            resolve(newPost);
         });
     }
 
-    getRoutines(userId) {
+    getPosts(userId) {
         return new Promise((resolve, reject) => {
-            resolve(this.routines);
+            resolve(this.posts);
         });
     }
 
-    getItems(userId, routineId) {
+    getItems(userId, postId) {
         return new Promise((resolve, reject) => {
             const items = [1, 2, 3].map(idx => {
-                const itemId = routineId + '-' + idx
+                const itemId = postId + '-' + idx
                 return { id: itemId, text: 'item-' + itemId, done: false }
             });
 
