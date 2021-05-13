@@ -1,10 +1,9 @@
 import {nanoid} from "nanoid";
 
-export function createItem(data) {
+export function createItem(value) {
     return {
         id: nanoid(),
-        todoId: data.id,
-        text: data.text,
+        text: value,
         done: false,
     }
 }

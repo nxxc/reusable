@@ -7,13 +7,9 @@ function AppRouter() {
     return (
         <Router>
             <Switch>
-                {/*<Route path='/' exact>*/}
-                {/*    <Login authService={authService} />*/}
-                {/*</Route>*/}
                 <Route path='/' exact>
                     <App />
                 </Route>
-                <Route path='/id'>todo detail</Route>
             </Switch>
         </Router>
     );
