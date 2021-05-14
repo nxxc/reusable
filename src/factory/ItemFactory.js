@@ -1,9 +1,6 @@
-import {nanoid} from "nanoid";
-
-export function createItem(value) {
+export function createItem(name) {
     return {
-        id: nanoid(),
-        text: value,
+        name,
         done: false,
     }
 }

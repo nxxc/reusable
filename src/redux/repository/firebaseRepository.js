@@ -23,6 +23,18 @@ class FbRepository {
         });
     }
 
+    getStocks(userId) {
+        return new Promise((resolve, reject) => {
+            resolve([]);
+        });
+    }
+
+    addStock(userId, stock) {
+        return new Promise((resolve, reject) => {
+            resolve();
+        });
+    }
+
 }
 
 export default FbRepository;

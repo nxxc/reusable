@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, ButtonGroup, Input, List, ListItem } from '@material-ui/core';
-import { addStock } from '../../redux/slices/stockSlice';
 import { addPostEvent } from '../../redux/slices/postSlice';
 import { closeDrawer } from '../../redux/store';
 import { createItem } from "../../factory/ItemFactory";
 import { createPost } from "../../factory/PostFactory";
+import { createStock } from "../../factory/StockFactory";
+import { addStockEvent } from '../../redux/slices/stockSlice';
 import Storage from "../Storage/Storage";
 import styles from './styles.module.css';
 
@@ -14,31 +15,27 @@ function PostForm() {
     const [value, setValue] = useState('');
     const [currentItem, setCurrentItem] = useState([]);
 
-    const stocks = useSelector((state) => state.stock);
+    const { stocks } = useSelector((state) => state.stock);
     const dispatch = useDispatch();
 
     const handleChange = (e) => {
         setValue(e.target.value);
     };
 
-    const addItem = text => {
-        const newItem = createItem(text);
+    const addItem = name => {
+        const newItem = createItem(name);
         setCurrentItem(state => [...state, newItem]);
     }
 
     // TODO : 별도의 파일로 리팩터링
-    const addStockToStorageIfNotExist = value => {
-        let stock;
+    const addStockToStorageIfNotExist = name => {
+        const isNotExistInNonFixedStocks = stocks.filter(it => !it.isFixed && it.name === name).length === 0;
 
-        if (!stocks.map(it => it.text).includes(value)) {
-            const action = addStock(value);
-            stock = action.payload;
+        if (isNotExistInNonFixedStocks) {
+            const newStock = createStock(name);
+            const action = addStockEvent(newStock);
             dispatch(action);
-        } else {
-            stock = stocks.filter(it => it.text === value)[0];
         }
-
-        return stock.text;
     }
 
     const onSaveItem = (e) => {
@@ -70,8 +67,8 @@ function PostForm() {
                     required
                 />
                 <List>
-                    {currentItem.map((item) => (
-                        <ListItem key={item.id}>{item.text}</ListItem>
+                    {currentItem.map((item, index) => (
+                        <ListItem key={index}>{item.name}</ListItem>
                     ))}
                 </List>
                 <Input

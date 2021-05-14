@@ -1,9 +1,8 @@
-import {Paper, List, ListItem, Checkbox} from '@material-ui/core';
-
 import React, {useState, useEffect} from 'react';
-import styles from './style.module.css';
 import {useDispatch} from "react-redux";
+import {Paper, List, ListItem, Checkbox} from '@material-ui/core';
 import {getItems} from "../../redux/service/itemService";
+import styles from './style.module.css';
 
 function Post({post}) {
     const {id, title} = post;
@@ -33,7 +32,7 @@ function Post({post}) {
                     {items.map((item) => (
                         <ListItem key={item.id}>
                             <Checkbox checked={item.done} onClick={() => onClick(item.id)}/>
-                            {item.text}
+                            {item.name}
                         </ListItem>
                     ))}
                 </List>
