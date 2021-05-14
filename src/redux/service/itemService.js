@@ -6,3 +6,10 @@ export function getItems(postId) {
 
     return repository.getItems(userId, postId);
 }
+
+export function toggleItem(itemId) {
+    // TODO : userId refactoring
+    const userId = 1;
+
+    return repository.toggleItem(userId, itemId);
+}

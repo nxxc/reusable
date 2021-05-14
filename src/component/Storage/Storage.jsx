@@ -1,10 +1,16 @@
-import React from 'react';
-import styles from './styles.module.css';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 import { List, ListItem, Typography } from '@material-ui/core';
-import {useSelector} from "react-redux";
+import {getStocksEvent} from "../../redux/slices/stockSlice";
+import styles from './styles.module.css';
 
 function Storage({ addItem }) {
-    const stocks = useSelector((state) => state.stock);
+    const { stocks } = useSelector((state) => state.stock);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getStocksEvent());
+    }, [dispatch]);
 
     return (
         <section className={styles.stocksContainer}>
@@ -13,8 +19,8 @@ function Storage({ addItem }) {
             </header>
             <List className={styles.list}>
                 {stocks.map(it =>
-                    <ListItem button key={it.id} onClick={() => addItem(it.text)}>
-                        {it.text}
+                    <ListItem button key={it.id} onClick={() => addItem(it.name)}>
+                        <span>{it.name} (fixed : {it.isFixed ? "T" : "F"})</span>
                     </ListItem>
                 )}
             </List>

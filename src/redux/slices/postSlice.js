@@ -27,9 +27,7 @@ const postSlice = createSlice({
             return (state = action.payload);
         },
         [addPostEvent.fulfilled]: (state, action) => {
-            console.log(action.payload);
             state.push(action.payload);
-            return state;
         }
     },
 });

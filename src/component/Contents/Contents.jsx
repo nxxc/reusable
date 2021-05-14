@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import Post from '../Post/Post';
 import styles from './styles.module.css';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import {closeDrawer, openDrawer} from "../../redux/store";
+import {openDrawer} from "../../redux/store";
 import {getPostsEvent} from "../../redux/slices/postSlice";
 import {useDispatch, useSelector} from "react-redux";
 
