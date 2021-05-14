@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch} from "react-redux";
 import {Paper, List, ListItem, Checkbox} from '@material-ui/core';
-import {getItems} from "../../redux/service/itemService";
+import {getItems, toggleItem} from "../../redux/service/itemService";
 import styles from './style.module.css';
 
 function Post({post}) {
@@ -19,6 +19,7 @@ function Post({post}) {
             item.id === id ? {...item, done: !item.done} : item
         );
         setItems(newItems);
+        toggleItem(id);
     };
 
     return (

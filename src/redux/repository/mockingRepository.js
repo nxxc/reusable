@@ -1,3 +1,6 @@
+// TODO : userId를 매 요청시 API에 전달 x
+//  -> 서버에서 그냥 요청한 브라우저의 쿠키 혹은 브라우저 정보를 통해 확인
+
 export default class MockingRepository {
 
     constructor() {
@@ -54,6 +57,13 @@ export default class MockingRepository {
 
             resolve(items);
         });
+    }
+
+    toggleItem(userId, itemId) {
+        const foundItem = this.items.find(it => it.id === itemId);
+        if (foundItem) {
+            foundItem.done = !foundItem.done
+        }
     }
 
     getStocks(userId) {

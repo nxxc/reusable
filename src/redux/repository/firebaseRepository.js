@@ -23,6 +23,8 @@ class FbRepository {
         });
     }
 
+    toggleItem(userId, itemId) {}
+
     getStocks(userId) {
         return new Promise((resolve, reject) => {
             resolve([]);
