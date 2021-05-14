@@ -40,6 +40,7 @@ function PostForm() {
 
     const onSaveItem = (e) => {
         e.preventDefault();
+        if (value === '') return;
         setValue('');
         addStockToStorageIfNotExist(value);
         addItem(value);
