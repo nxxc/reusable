@@ -1,6 +1,6 @@
 import React from 'react';
 
-import App from './components/App/App';
+import App from './component/App/App';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 
 function AppRouter() {
