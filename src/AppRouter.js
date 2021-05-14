@@ -1,14 +1,14 @@
 import React from 'react';
 
-import App from './component/App/App';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import PostList from "./page/PostList";
 
 function AppRouter() {
     return (
         <Router>
             <Switch>
                 <Route path='/' exact>
-                    <App />
+                    <PostList />
                 </Route>
             </Switch>
         </Router>

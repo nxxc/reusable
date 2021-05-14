@@ -4,8 +4,8 @@ import { Button, ButtonGroup, Input, List, ListItem } from '@material-ui/core';
 import { addStock } from '../../redux/slices/stockSlice';
 import { addPostEvent } from '../../redux/slices/postSlice';
 import { closeDrawer } from '../../redux/store';
-import { createItem } from "../Factory/ItemFactory";
-import { createPost } from "../Factory/PostFactory";
+import { createItem } from "../../factory/ItemFactory";
+import { createPost } from "../../factory/PostFactory";
 import Storage from "../Storage/Storage";
 import styles from './styles.module.css';
 
