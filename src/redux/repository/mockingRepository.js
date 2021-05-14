@@ -2,6 +2,20 @@ export default class MockingRepository {
 
     constructor() {
         this.posts = [1, 2, 3].map(idx => ({ id: idx, title: 'post' + idx }));
+        this.items = [
+            {id: 1, postId: 1, name: "do homework", done: false },
+            {id: 2, postId: 1, name: "exercise", done: false },
+            {id: 3, postId: 1, name: "work", done: false },
+            {id: 4, postId: 1, name: "do homework", done: true },
+            {id: 5, postId: 2, name: "exercise", done: false },
+            {id: 6, postId: 2, name: "shopping", done: false },
+            {id: 7, postId: 2, name: "meet girlfriend", done: false },
+            {id: 8, postId: 3, name: "egg", done: false },
+            {id: 9, postId: 3, name: "milk", done: false },
+            {id: 10, postId: 3, name: "cloth", done: true },
+            {id: 11, postId: 3, name: "fish", done: false },
+            {id: 12, postId: 3, name: "carrot", done: false },
+        ]
         this.stocks = [
             {id: 1, name: 'test', parent: null, isFixed: true},
             {id: 2, name: 'sample', parent: null, isFixed: true},
@@ -15,6 +29,12 @@ export default class MockingRepository {
         return new Promise((resolve, reject) => {
             const nextId = Math.max(...this.posts.map(post => post.id)) + 1
             const newPost = { id: nextId, title: post.title }
+
+            const nextItemId = Math.max(...this.items.map(item => item.id)) + 1;
+            const newItems = post.items.map((it, index) => (
+                { id: nextItemId + index, postId: newPost.id, name: it.name, done: false }
+            ))
+            this.items.push(...newItems);
 
             this.posts = [...this.posts, { ...newPost }];
 
@@ -30,10 +50,7 @@ export default class MockingRepository {
 
     getItems(userId, postId) {
         return new Promise((resolve, reject) => {
-            const items = [1, 2, 3].map(idx => {
-                const itemId = postId + '-' + idx
-                return { id: itemId, name: 'item-' + itemId, stockId: null, done: false }
-            });
+            const items = this.items.filter(it => it.postId === postId);
 
             resolve(items);
         });
