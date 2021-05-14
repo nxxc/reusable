@@ -1,12 +1,12 @@
 import React from 'react';
-import { Drawer } from '@material-ui/core';
-import PostForm from '../PostForm/PostForm';
-import {useDispatch, useSelector} from 'react-redux';
-import Contents from '../Container/Contents/Contents';
-import Header from '../Container/Header/Header';
+import {useDispatch, useSelector} from "react-redux";
 import {closeDrawer} from "../../redux/store";
+import Header from "../../component/Header/Header";
+import Contents from "../../component/Contents/Contents";
+import {Drawer} from "@material-ui/core";
+import PostForm from "../../component/PostForm/PostForm";
 
-function App() {
+export default function PostList() {
     const isOpen = useSelector((state) => state.base.isOpen);
     const dispatch = useDispatch();
 
@@ -23,15 +23,9 @@ function App() {
         <>
             <Header />
             <Contents />
-            <Drawer
-                anchor='right'
-                open={isOpen}
-                onClose={e => setDrawerClose(e)}
-            >
+            <Drawer anchor='right' open={isOpen} onClose={setDrawerClose}>
                 <PostForm />
             </Drawer>
         </>
     );
 }
-
-export default App;
