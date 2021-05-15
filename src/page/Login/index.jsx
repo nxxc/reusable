@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 // import { login } from '../../redux/slices/userSlice';
 import '@lottiefiles/lottie-player';
-import styles from './styles.module.css';
 
 // const userMaker = (user) => {
 //     const result = {
@@ -31,8 +30,8 @@ export default function () {
 
     return (
         <>
-            <div className={styles.container}>
-                <section className={styles.lottie}>
+            <div>
+                <section>
                     <lottie-player
                         autoplay
                         loop

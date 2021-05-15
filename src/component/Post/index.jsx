@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch} from "react-redux";
-import {Paper, List, ListItem, Checkbox} from '@material-ui/core';
 import {getItems, toggleItem} from "../../redux/service/itemService";
-import styles from './style.module.css';
 
 export default function ({post}) {
     const {id, title} = post;
@@ -23,21 +21,19 @@ export default function ({post}) {
     };
 
     return (
-        <Paper className={styles.item}>
-            <header className={styles.header}>
+        <div>
+            <header>
                 <h1>{title}</h1>
             </header>
 
-            <section className={styles.listContainer}>
-                <List>
-                    {items.map((item) => (
-                        <ListItem key={item.id}>
-                            <Checkbox checked={item.done} onClick={() => onClick(item.id)}/>
-                            {item.name}
-                        </ListItem>
-                    ))}
-                </List>
+            <section>
+                {items.map((item) => (
+                    <div key={item.id}>
+                        <input type="checkbox" checked={item.done} onClick={() => onClick(item.id)}/>
+                        {item.name}
+                    </div>
+                ))}
             </section>
-        </Paper>
+        </div>
     );
 }

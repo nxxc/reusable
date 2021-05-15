@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, ButtonGroup, Input, List, ListItem } from '@material-ui/core';
 import { addPostEvent } from '../../redux/slices/postSlice';
 import { addStockEvent } from '../../redux/slices/stockSlice';
 import { closeDrawer } from '../../redux/store';
 import { createItem } from "../../factory/ItemFactory";
 import { createPost } from "../../factory/PostFactory";
 import { createStock } from "../../factory/StockFactory";
-import styles from './styles.module.css';
 import StorageContainer from "../StorageContainer";
 
 export default function () {
@@ -57,45 +55,33 @@ export default function () {
     };
 
     return (
-        <div className={styles.container}>
-            <form className={styles.postContainer} onSubmit={onSaveItem}>
-                <Input
+        <div>
+            <form onSubmit={onSaveItem}>
+                <input
                     id='title'
                     type='text'
                     placeholder='add title...'
                     value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={e => setTitle(e.target.value)}
                     required
                 />
-                <List>
-                    {currentItem.map((item, index) => (
-                        <ListItem key={index}>{item.name}</ListItem>
-                    ))}
-                </List>
-                <Input
+
+                <ul>
+                    {currentItem.map((item, index) => <li key={index}>{item.name}</li>)}
+                </ul>
+
+                <input
                     id='item'
                     type='text'
                     value={value}
                     placeholder='add item...'
                     onChange={handleChange}
                 />
-                <ButtonGroup>
-                    <Button
-                        variant='contained'
-                        color='primary'
-                        onClick={onSaveItem}
-                        type='submit'
-                    >
-                        add item
-                    </Button>
-                    <Button
-                        variant='contained'
-                        color='secondary'
-                        onClick={onSavePost}
-                    >
-                        save
-                    </Button>
-                </ButtonGroup>
+
+                <div>
+                    <button onClick={onSaveItem}>add item</button>
+                    <button onClick={onSavePost}>save</button>
+                </div>
             </form>
 
             <StorageContainer addItemToPost={addItem} />
