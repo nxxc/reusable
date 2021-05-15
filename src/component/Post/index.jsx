@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch} from "react-redux";
 import {getItems, toggleItem} from "../../redux/service/itemService";
-import styles from './style.module.css';
 
 export default function ({post}) {
     const {id, title} = post;
@@ -22,12 +21,12 @@ export default function ({post}) {
     };
 
     return (
-        <div className={styles.item}>
-            <header className={styles.header}>
+        <div>
+            <header>
                 <h1>{title}</h1>
             </header>
 
-            <section className={styles.listContainer}>
+            <section>
                 {items.map((item) => (
                     <div key={item.id}>
                         <input type="checkbox" checked={item.done} onClick={() => onClick(item.id)}/>

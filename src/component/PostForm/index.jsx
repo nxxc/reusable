@@ -7,7 +7,6 @@ import { createItem } from "../../factory/ItemFactory";
 import { createPost } from "../../factory/PostFactory";
 import { createStock } from "../../factory/StockFactory";
 import StorageContainer from "../StorageContainer";
-import styles from './styles.module.css';
 
 export default function () {
     const [title, setTitle] = useState('');
@@ -56,8 +55,8 @@ export default function () {
     };
 
     return (
-        <div className={styles.container}>
-            <form className={styles.postContainer} onSubmit={onSaveItem}>
+        <div>
+            <form onSubmit={onSaveItem}>
                 <input
                     id='title'
                     type='text'

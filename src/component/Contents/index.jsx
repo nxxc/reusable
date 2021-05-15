@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {openDrawer} from "../../redux/store";
 import {getPostsEvent} from "../../redux/slices/postSlice";
 import Post from '../Post';
-import styles from './styles.module.css';
 
 export default function () {
     const posts = useSelector(state => state.post);
@@ -16,7 +15,7 @@ export default function () {
     }, [dispatch]);
 
     return (
-        <section className={styles.container}>
+        <section>
             <button onClick={setDrawerOpen}>ADD POST</button>
 
             {posts.map(
