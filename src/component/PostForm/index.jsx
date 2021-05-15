@@ -8,9 +8,9 @@ import { createItem } from "../../factory/ItemFactory";
 import { createPost } from "../../factory/PostFactory";
 import { createStock } from "../../factory/StockFactory";
 import styles from './styles.module.css';
-import StorageContainer from "../StorageContainer/StorageContainer";
+import StorageContainer from "../StorageContainer";
 
-function PostForm() {
+export default function () {
     const [title, setTitle] = useState('');
     const [value, setValue] = useState('');
     const [currentItem, setCurrentItem] = useState([]);
@@ -102,5 +102,3 @@ function PostForm() {
         </div>
     );
 }
-
-export default PostForm;

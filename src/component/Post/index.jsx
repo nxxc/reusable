@@ -4,7 +4,7 @@ import {Paper, List, ListItem, Checkbox} from '@material-ui/core';
 import {getItems, toggleItem} from "../../redux/service/itemService";
 import styles from './style.module.css';
 
-function Post({post}) {
+export default function ({post}) {
     const {id, title} = post;
     const [items, setItems] = useState([]);
     const dispatch = useDispatch();
@@ -41,5 +41,3 @@ function Post({post}) {
         </Paper>
     );
 }
-
-export default Post;

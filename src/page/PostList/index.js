@@ -1,10 +1,10 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {closeDrawer} from "../../redux/store";
-import Header from "../../component/Header/Header";
-import Contents from "../../component/Contents/Contents";
+import Header from "../../component/Header";
+import Contents from "../../component/Contents";
 import {Drawer} from "@material-ui/core";
-import PostForm from "../../component/PostForm/PostForm";
+import PostForm from "../../component/PostForm";
 
 export default function PostList() {
     const isOpen = useSelector((state) => state.base.isOpen);

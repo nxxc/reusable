@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getStocksEvent, setParent} from "../../redux/slices/stockSlice";
-import Storage from "../Storage/Storage";
+import Storage from "../Storage";
 
-export default function({ addItemToPost }) {
+export default function ({ addItemToPost }) {
     const { stocks, parent } = useSelector((state) => state.stock);
     const fixedStocks = stocks.filter(it => it.isFixed && it.parent === parent);
     const nonFixedStocks = stocks.filter(it => !it.isFixed);

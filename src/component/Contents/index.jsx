@@ -1,13 +1,13 @@
-import { Button } from '@material-ui/core';
+import {Button} from '@material-ui/core';
 import React, {useEffect} from 'react';
-import Post from '../Post/Post';
+import Post from '../Post';
 import styles from './styles.module.css';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import {openDrawer} from "../../redux/store";
 import {getPostsEvent} from "../../redux/slices/postSlice";
 import {useDispatch, useSelector} from "react-redux";
 
-function Contents() {
+export default function () {
     const posts = useSelector(state => state.post);
     const dispatch = useDispatch();
 
@@ -20,14 +20,12 @@ function Contents() {
     return (
         <section className={styles.container}>
             {posts.map(
-                post => <Post key={post.id} post={post} />
+                post => <Post key={post.id} post={post}/>
             )}
 
             <Button onClick={setDrawerOpen} className={styles.addButton}>
-                <AddCircleOutlineIcon />
+                <AddCircleOutlineIcon/>
             </Button>
         </section>
     );
 }
-
-export default Contents;
