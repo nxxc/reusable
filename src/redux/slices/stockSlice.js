@@ -20,11 +20,13 @@ export const addStockEvent = createAsyncThunk(
 const stockSlice = createSlice({
     name: 'stock',
     initialState: {
-        level: 0,
+        parent: 0,
         stocks: []
     },
     reducers: {
-
+        setParent(state, action) {
+            state.parent = action.payload;
+        },
     },
     extraReducers: {
         [getStocksEvent.fulfilled]: (state, action) => {
@@ -35,5 +37,7 @@ const stockSlice = createSlice({
         }
     },
 });
+
+export const { setParent } = stockSlice.actions;
 
 export default stockSlice.reducer;

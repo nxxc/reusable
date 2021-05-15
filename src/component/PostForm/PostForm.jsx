@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, ButtonGroup, Input, List, ListItem } from '@material-ui/core';
 import { addPostEvent } from '../../redux/slices/postSlice';
+import { addStockEvent } from '../../redux/slices/stockSlice';
 import { closeDrawer } from '../../redux/store';
 import { createItem } from "../../factory/ItemFactory";
 import { createPost } from "../../factory/PostFactory";
 import { createStock } from "../../factory/StockFactory";
-import { addStockEvent } from '../../redux/slices/stockSlice';
-import Storage from "../Storage/Storage";
 import styles from './styles.module.css';
+import StorageContainer from "../StorageContainer/StorageContainer";
 
 function PostForm() {
     const [title, setTitle] = useState('');
@@ -98,7 +98,7 @@ function PostForm() {
                 </ButtonGroup>
             </form>
 
-            <Storage addItem={addItem} />
+            <StorageContainer addItemToPost={addItem} />
         </div>
     );
 }

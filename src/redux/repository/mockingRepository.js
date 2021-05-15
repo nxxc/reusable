@@ -20,11 +20,11 @@ export default class MockingRepository {
             {id: 12, postId: 3, name: "carrot", done: false },
         ]
         this.stocks = [
-            {id: 1, name: 'test', parent: null, isFixed: true},
-            {id: 2, name: 'sample', parent: null, isFixed: true},
+            {id: 1, name: 'test', parent: 0, isFixed: true},
+            {id: 2, name: 'sample', parent: 0, isFixed: true},
             {id: 3, name: 'fake', parent: 1, isFixed: true},
             {id: 4, name: 'mock', parent: 1, isFixed: true},
-            {id: 5, name: 'stock1', parent: null, isFixed: false}
+            {id: 5, name: 'stock1', parent: 0, isFixed: false}
         ];
     }
 
