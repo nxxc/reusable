@@ -1,10 +1,7 @@
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import React from 'react';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-function Header({
-                    // onLogout
-}) {
+export default function () {
     return (
         <header>
             <AppBar position='static' color='transparent'>
@@ -22,5 +19,3 @@ function Header({
         </header>
     );
 }
-
-export default Header;

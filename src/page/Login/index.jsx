@@ -15,7 +15,7 @@ import styles from './styles.module.css';
 //     return result;
 // };
 
-function Login() {
+export default function () {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -49,6 +49,3 @@ function Login() {
         </>
     );
 }
-
-export default Login;
-//

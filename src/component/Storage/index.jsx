@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.module.css';
-import Stock from "../Stock/Stock";
+import Stock from "../Stock";
 
 export default function ({ stocks, addItemToPost }) {
     return (
