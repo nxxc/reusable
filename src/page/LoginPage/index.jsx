@@ -41,8 +41,8 @@ export default function () {
                     ></lottie-player>
                 </section>
                 {/*<section className={styles.buttons} onClick={onLogin}>*/}
-                {/*    <button data-provider='Google'>Login with Google</button>*/}
-                {/*    <button data-provider='Github'>Login with Github</button>*/}
+                {/*    <button data-provider='Google'>LoginPage with Google</button>*/}
+                {/*    <button data-provider='Github'>LoginPage with Github</button>*/}
                 {/*</section>*/}
             </div>
         </>
