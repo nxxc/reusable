@@ -12,10 +12,6 @@ export default function ({ addItemToPost }) {
 
     const setStorageParent = () => { dispatch(setParent(0)); }
 
-    useEffect(() => {
-        dispatch(getStocksEvent());
-    }, [dispatch]);
-
     return (
         <div>
             <header>Browse</header>

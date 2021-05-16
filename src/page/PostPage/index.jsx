@@ -1,16 +1,12 @@
 import React from "react";
-import PreviewList from "../../component/PreviewList";
+import PreviewContainer from "../../component/PreviewContainer";
 import PostContainer from "../../component/PostContainer";
 
 export default function () {
     return (
         <div style={{ display: "flex" }}>
             <div style={{ width: 150 }}>
-                <div>
-                    <button>new</button>
-                </div>
-                <hr />
-                <PreviewList />
+                <PreviewContainer />
             </div>
 
             <div style={{ flex: 1 }}>

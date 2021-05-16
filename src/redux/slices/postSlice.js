@@ -18,18 +18,26 @@ export const addPostEvent = createAsyncThunk(
 
 const postSlice = createSlice({
     name: 'post',
-    initialState: [],
+    initialState: {
+        selected: null,
+        posts: []
+    },
     reducers: {
-
+        selectPost(state, action) {
+            state.selected = action.payload;
+        },
     },
     extraReducers: {
         [getPostsEvent.fulfilled]: (state, action) => {
-            return (state = action.payload);
+            state.posts = action.payload;
+            state.selected = !!state.posts.length ? state.posts[0].id : null;
         },
         [addPostEvent.fulfilled]: (state, action) => {
-            state.push(action.payload);
+            state.posts.push(action.payload);
         }
     },
 });
+
+export const { selectPost } = postSlice.actions;
 
 export default postSlice.reducer;

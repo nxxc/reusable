@@ -10,9 +10,9 @@ export default function ({post}) {
     useEffect(async () => {
         const items = await getItems(id);
         setItems(items);
-    }, [dispatch]);
+    }, [dispatch, post.id]);
 
-    const onClick = (id) => {
+    const onChange = (id) => {
         const newItems = items.map((item) =>
             item.id === id ? {...item, done: !item.done} : item
         );
@@ -29,7 +29,7 @@ export default function ({post}) {
             <section>
                 {items.map((item) => (
                     <div key={item.id}>
-                        <input type="checkbox" checked={item.done} onClick={() => onClick(item.id)}/>
+                        <input type="checkbox" checked={item.done} onChange={() => onChange(item.id)}/>
                         {item.name}
                     </div>
                 ))}
