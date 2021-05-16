@@ -4,7 +4,7 @@ import {closeDrawer} from "../../redux/store";
 import Header from "../../component/Header";
 import Contents from "../../component/Contents";
 import {Drawer} from "@material-ui/core";
-import PostForm from "../../component/PostForm";
+import PostForm from "../../component/NewPost";
 
 export default function PostList() {
     const isOpen = useSelector((state) => state.base.isOpen);
